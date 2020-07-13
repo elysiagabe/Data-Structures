@@ -1,4 +1,5 @@
 from singly_linked_list import LinkedList, Node
+from stack import Stack
 
 """
 A queue is a data structure whose primary purpose is to store and
@@ -73,3 +74,31 @@ class Queue:
         if self.size is not 0:
             self.size -= 1
         return self.storage.remove_head()
+
+"""
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+STRETCH IMPLEMENTATION: 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"""
+# class Queue:
+#     def __init__(self):
+#         self.stack_A = Stack()
+#         self.stack_B = Stack()
+
+#     def __len__(self):
+#         return self.stack_A.__len__()
+    
+#     def enqueue(self, value):
+#         return self.stack_A.push(value)
+
+#     def dequeue(self):
+#         if self.stack_A.__len__() is 0:
+#             return None
+        
+#         while self.stack_A.__len__() > 1: 
+#             self.stack_B.push(self.stack_A.pop())
+#         remove_value = self.stack_A.pop()
+#         while self.stack_B.__len__() > 0:
+#             self.stack_A.push(self.stack_B.pop())
+#         return remove_value
+        
