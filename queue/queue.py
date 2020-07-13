@@ -13,6 +13,11 @@ return elements in First In First Out order.
 Stretch: What if you could only use instances of your Stack class to implement the Queue?
          What would that look like? How many Stacks would you need? Try it!
 """
+
+""" 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ARRAY STORAGE STRUCTURE IMPLEMENTATION: 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class Queue:
     def __init__(self):
         self.size = 0
@@ -37,3 +42,5 @@ class Queue:
         removed = self.storage.pop(0)
         self.size -= 1
         return removed 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"""
