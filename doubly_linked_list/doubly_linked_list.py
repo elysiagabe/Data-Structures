@@ -69,9 +69,33 @@ class DoublyLinkedList:
     Wraps the given value in a ListNode and inserts it 
     as the new tail of the list. Don't forget to handle 
     the old tail node's next pointer accordingly.
+
+    Replaces tail of list w/new value that's passed in. 
     """
     def add_to_tail(self, value):
-        pass
+        # if empty list (length 0, current head or tail is None), new node is assigned to head and tail. prev & next values of new node will both be none (which is default)
+        if self.tail is None: 
+            new_node = ListNode(value)
+            self.head = new_node
+            self.tail = new_node
+            self.length += 1
+
+        # if list of one or more, new node becomes tail (prev points to current tail, next is none) and current tail's next value becomes the new tail
+        else: 
+            current_tail = self.tail
+            new_node = ListNode(value, current_tail, None)
+            self.tail = new_node
+            current_tail.next = new_node
+            self.length += 1
+        # CLASS NOTES: 
+        # create instance of List Node w/ value
+        # incrememnt DLL length attr
+        # if DLL is empty
+            # set head & tail to new node instance
+        # if DLL is not empty
+            # set new node's prev to current tail
+            # set tail's next to new node
+            # set tail to new node
             
     """
     Removes the List's current tail node, making the 
@@ -79,6 +103,16 @@ class DoublyLinkedList:
     Returns the value of the removed Node.
     """
     def remove_from_tail(self):
+        # store value of tail
+        # decrement length of DLL
+        # delete the tail
+            # if tail.prev is not None
+                # set tail.prev's next to None
+                # set tail to tail.prev
+            # else (if tail.prev is None)
+                # set head to None
+                # set tail to None
+        # return the value
         pass
             
     """
