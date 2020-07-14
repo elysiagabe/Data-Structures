@@ -25,10 +25,24 @@ class DoublyLinkedList:
     Wraps the given value in a ListNode and inserts it 
     as the new head of the list. Don't forget to handle 
     the old head node's previous pointer accordingly.
+
+    Replaces the head of the list with a new value that's passed in.
     """
     def add_to_head(self, value):
-        pass
-        
+        # if current head is None (means nothing in list yet), add the new node to the list (prev & next will both be none, which is default value)
+        if self.head is None:
+            new_node = ListNode(value)
+            self.head = new_node
+            self.tail = new_node
+            self.length += 1
+        # if current head is not None, the new node will have the old head as the next value and none as the previous value...current head next will remain the same and prev will be the new node
+        else: 
+            current_head = self.head
+            new_node = ListNode(value, None, current_head)
+            self.head = new_node
+            current_head.prev = new_node
+            self.length += 1
+
     """
     Removes the List's current head node, making the
     current head's next node the new head of the List.
