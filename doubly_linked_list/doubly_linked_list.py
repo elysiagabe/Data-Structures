@@ -187,4 +187,17 @@ class DoublyLinkedList:
     in the List.
     """
     def get_max(self):
-        pass
+        # only can do this for non-empty list
+        if self.head is not None: 
+            # start at list head
+            n = self.head
+            # head will be initial max b/c nothing to compare to yet
+            max = n.value
+            # traverse list until n.next is None (means you've reached the tail of the list)
+            while n.next is not None: 
+                # compare the value of the current max & the next value in the list...if next value is higher, then reassign max
+                if max <= n.next.value: 
+                    max = n.next.value
+                # move on to the next value to compare
+                n = n.next
+            return max
