@@ -84,8 +84,8 @@ class DoublyLinkedList:
         else: 
             current_tail = self.tail
             new_node = ListNode(value, current_tail, None)
-            self.tail = new_node
             current_tail.next = new_node
+            self.tail = new_node
             self.length += 1
         # CLASS NOTES: 
         # create instance of List Node w/ value
@@ -133,20 +133,12 @@ class DoublyLinkedList:
     List and inserts it as the new head node of the List.
     """
     def move_to_front(self, node):
-        # if there's only 1 item, don't need to do anything b/c there's nothing to move
+        # if only one item in list, nowhere to move...
         if self.head is not self.tail: 
-            if node is not self.head: 
-                # if the node is the tail, the previous node of the node that's moving needs its next value reassigned to None...can then use add_to_head method (need to decrement length b/c add_to_head will increment)
-                if node is self.tail: 
-                    prev_node = node.prev
-                    prev_node.next = None
-                # if more than 1 item in list and the node that's moving is not the tail, the previos node's next value needs to be reassigned to the next node (and vice versa)...then do the same add_to_head method and decrement length
-                if self.length > 0 and node is not self.tail: 
-                    prev_node = node.prev
-                    next_node = node.next
-                    prev_node.next, next_node.prev = next_node.value, prev_node.value
-                self.length -= 1
-            # if the list is empty, can just add the value
+            # if list is not empty, delete the node first...
+            if self.head is not None: 
+                self.delete(node)
+            # add to tail 
             self.add_to_head(node.value)
 
     """
@@ -154,14 +146,41 @@ class DoublyLinkedList:
     List and inserts it as the new tail node of the List.
     """
     def move_to_end(self, node):
-        pass
+        # if only one item in list, nowhere to move...
+        if self.head is not self.tail: 
+            # if list is not empty, delete the node first...
+            if self.head is not None: 
+                self.delete(node)
+            # add to tail 
+            self.add_to_tail(node.value)
 
     """
     Deletes the input node from the List, preserving the 
     order of the other elements of the List.
     """
     def delete(self, node):
-        pass
+        # empty list? dont do anything...nothing to delete
+        if self.length > 0: 
+            # decrement length
+            self.length -= 1
+            # if one item in list: head & tail are same...set both to None
+            if self.tail is self.head: 
+                self.tail = None
+                self.head = None
+            # if node is head, the previous value on node's next value needs to be None...reassign head to node's next value
+            elif node is self.head: 
+                next_node = node.next
+                next_node.prev = None
+                self.head = next_node
+            # if node is tail, the next value on node's previous needs to be set to None...reassign tail to node's previous
+            elif node is self.tail:
+                prev_node = node.prev
+                prev_node.next = None
+                self.tail = prev_node
+            # otherwise, set next value for node's previous to node's next and vice versa
+            else:
+                prev_node, next_node = node.prev, node.next
+                prev_node.next, next_node.prev = next_node.value, prev_node.value
 
     """
     Finds and returns the maximum value of all the nodes 
