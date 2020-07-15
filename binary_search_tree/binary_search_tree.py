@@ -17,20 +17,67 @@ class BSTNode:
 
     # Insert the given value into the tree
     def insert(self, value):
-        pass
+        #pass
+        # Case 1: value is less than self.value
+        if value < self.value:
+            # If there is no left child, insert value here
+            if self.left is None: # or if not self.left
+                self.left = BSTNode(value)
+
+            # ELSE ---> RECURSIVE
+            else: 
+                # Repeat the process on left subtree...i.e., call insert again on self.left
+                # This is a very trustful and naive way of implementing...will learn more later
+                self.left.insert(value)
+
+        # Case 2: value is greater than or equal to self.value (test assumes equal goes to right...this is more common though either way is technically ok)
+        elif value >= self.value:
+            if self.right is None:
+                self.right = BSTNode(value)
+            else: 
+                self.right.insert(value)
 
     # Return True if the tree contains the value
     # False if it does not
     def contains(self, target):
-        pass
+        #pass
+        # Case 1: self.value is equal to the target
+        if self.value == target:
+            return True
+        # Case 2: target is less than self.value
+        if target < self.value:
+            # if self.left is none, it isn't in the tree
+            if self.left is None:
+                return False
+            else: 
+                return self.left.contains(target) # don't forget to return here
+        # Case 3: otherwise (target is greater than?)
+        else: 
+            if self.right is None:
+                return False
+            else: 
+                return self.right.contains(target)
 
     # Return the maximum value found in the tree
     def get_max(self):
-        pass
+        # if nothing to the right, root node is max value
+        if self.right is None: 
+            return self.value
+        # otherwise, run until you get the right-most/highest value
+        else: 
+            return self.right.get_max()
 
     # Call the function `fn` on the value of each node
     def for_each(self, fn):
-        pass
+        # run on the root node
+        fn(self.value) 
+        # run on every node of the subtree to the left
+        if self.left is not None: 
+            self.left.for_each(fn)
+        # run on every node of the subtree to the right
+        if self.right is not None: 
+            self.right.for_each(fn)
+        
 
     # Part 2 -----------------------
 
