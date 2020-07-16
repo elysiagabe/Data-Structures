@@ -77,16 +77,17 @@ class DoublyLinkedList:
         if self.tail is None: 
             new_node = ListNode(value)
             self.head = new_node
-            self.tail = new_node
-            self.length += 1
+            # self.tail = new_node
+            # self.length += 1
 
         # if list of one or more, new node becomes tail (prev points to current tail, next is none) and current tail's next value becomes the new tail
         else: 
             current_tail = self.tail
             new_node = ListNode(value, current_tail, None)
             current_tail.next = new_node
-            self.tail = new_node
-            self.length += 1
+        
+        self.tail = new_node
+        self.length += 1
         # CLASS NOTES: 
         # create instance of List Node w/ value
         # incrememnt DLL length attr
@@ -127,6 +128,12 @@ class DoublyLinkedList:
                 # set head to None
                 # set tail to None
         # return the value
+        """
+        With delete: 
+        value = self.tail.value
+        self.delete(self.tail)
+        return value
+        """
 
     """
     Removes the input node from its current spot in the 
@@ -160,27 +167,28 @@ class DoublyLinkedList:
     """
     def delete(self, node):
         # empty list? dont do anything...nothing to delete
-        if self.length > 0: 
-            # decrement length
-            self.length -= 1
-            # if one item in list: head & tail are same...set both to None
-            if self.tail is self.head: 
-                self.tail = None
-                self.head = None
-            # if node is head, the previous value on node's next value needs to be None...reassign head to node's next value
-            elif node is self.head: 
-                next_node = node.next
-                next_node.prev = None
-                self.head = next_node
-            # if node is tail, the next value on node's previous needs to be set to None...reassign tail to node's previous
-            elif node is self.tail:
-                prev_node = node.prev
-                prev_node.next = None
-                self.tail = prev_node
-            # otherwise, set next value for node's previous to node's next and vice versa
-            else:
-                prev_node, next_node = node.prev, node.next
-                prev_node.next, next_node.prev = next_node.value, prev_node.value
+        if self.length == 0:
+            return 
+        # decrement length
+        self.length -= 1
+        # if one item in list: head & tail are same...set both to None
+        if self.tail is self.head: 
+            self.tail = None
+            self.head = None
+        # if node is head, the previous value on node's next value needs to be None...reassign head to node's next value
+        elif node is self.head: 
+            next_node = node.next
+            next_node.prev = None
+            self.head = next_node
+        # if node is tail, the next value on node's previous needs to be set to None...reassign tail to node's previous
+        elif node is self.tail:
+            prev_node = node.prev
+            prev_node.next = None
+            self.tail = prev_node
+        # otherwise, set next value for node's previous to node's next and vice versa
+        else:
+            prev_node, next_node = node.prev, node.next
+            prev_node.next, next_node.prev = next_node.value, prev_node.value
 
     """
     Finds and returns the maximum value of all the nodes 
@@ -188,16 +196,19 @@ class DoublyLinkedList:
     """
     def get_max(self):
         # only can do this for non-empty list
-        if self.head is not None: 
+        if self.head: 
             # start at list head
             n = self.head
             # head will be initial max b/c nothing to compare to yet
             max = n.value
             # traverse list until n.next is None (means you've reached the tail of the list)
-            while n.next is not None: 
+            while n.next: 
                 # compare the value of the current max & the next value in the list...if next value is higher, then reassign max
-                if max <= n.next.value: 
+                if max < n.next.value: 
                     max = n.next.value
                 # move on to the next value to compare
                 n = n.next
             return max
+        # if empty list
+        else: 
+            return None
